@@ -1,11 +1,13 @@
-const container = document.querySelector('.container');
-
 let limit = 16;
-newGrid();
-
 let normalOption = true;
 let rainbowOption = false;
 let darkeningOption = false;
+
+const container = document.querySelector('.container');
+const size = document.querySelector('button');
+const normalDraw = document.querySelector('#normal');
+const rainbowDraw = document.querySelector('#rainbow');
+const darkeningDraw = document.querySelector('#darkening');
 
 function newGrid() {
   for (let i = 0; i < limit; i++) {
@@ -18,16 +20,13 @@ function newGrid() {
       row.appendChild(square);
     }
   }
-
   const squares = document.querySelectorAll('.square');
-
   squares.forEach((square) => {
     square.addEventListener('mouseover', () => {
       if (normalOption) {
         square.style.backgroundColor = 'black';
         square.style.opacity = 1;
       }
-
       if (rainbowOption) {
         let r = getRandomInt(255);
         let g = getRandomInt(255);
@@ -35,7 +34,6 @@ function newGrid() {
         square.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
         square.style.opacity = 1;
       }
-
       if (darkeningOption) {
         square.style.background = 'black';
         let currentSquareOpacity = Number(square.style.opacity);
@@ -46,10 +44,9 @@ function newGrid() {
   });
 }
 
-const size = document.querySelector('button');
-const normalDraw = document.querySelector('#normal');
-const rainbowDraw = document.querySelector('#rainbow');
-const darkeningDraw = document.querySelector('#darkening');
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
 
 size.addEventListener('click', () => {
   let changeSize = prompt('Type a number (1-100).');
@@ -91,9 +88,6 @@ darkeningDraw.addEventListener('click', () => {
     container.removeChild(container.firstChild);
   }
   newGrid();
-
 });
 
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
-}
+newGrid();
