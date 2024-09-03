@@ -28,9 +28,9 @@ function newGrid() {
         square.style.opacity = 1;
       }
       if (rainbowOption) {
-        let r = getRandomInt(255);
-        let g = getRandomInt(255);
-        let b = getRandomInt(255);
+        let r = getRandomInt();
+        let g = getRandomInt();
+        let b = getRandomInt();
         square.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
         square.style.opacity = 1;
       }
@@ -44,8 +44,15 @@ function newGrid() {
   });
 }
 
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
+function getRandomInt() {
+  return Math.floor(Math.random() * 255);
+}
+
+function reset() {
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
+  newGrid();
 }
 
 size.addEventListener('click', () => {
@@ -54,40 +61,28 @@ size.addEventListener('click', () => {
     changeSize = prompt('Error. Type a number again (1-100).');
   }
   limit = changeSize;
-  while (container.firstChild) {
-    container.removeChild(container.firstChild);
-  }
-  newGrid();
+  reset();
 });
 
 normalDraw.addEventListener('click', () => {
   normalOption = true;
   rainbowOption = false;
   darkeningOption = false;
-  while (container.firstChild) {
-    container.removeChild(container.firstChild);
-  }
-  newGrid();
+  reset();
 });
 
 rainbowDraw.addEventListener('click', () => {
   normalOption = false;
   rainbowOption = true;
   darkeningOption = false;
-  while (container.firstChild) {
-    container.removeChild(container.firstChild);
-  }
-  newGrid();
+  reset();
 });
 
 darkeningDraw.addEventListener('click', () => {
   normalOption = false;
   rainbowOption = false;
   darkeningOption = true;
-  while (container.firstChild) {
-    container.removeChild(container.firstChild);
-  }
-  newGrid();
+  reset();
 });
 
 newGrid();
